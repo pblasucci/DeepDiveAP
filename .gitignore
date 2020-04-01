@@ -1,0 +1,6 @@
+**/[oO]bj/
+**/[bB]in/
+.ionide/
+.paket/
+.vscode/
+paket-files/

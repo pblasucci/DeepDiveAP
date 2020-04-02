@@ -3,6 +3,7 @@ module hilowgame.Before
 open System
 
 let playGame (io : IO) =
+
   let rec loop streak thisCard =
     let nextCard = io.drawCard ()
 #if INTERACTIVE

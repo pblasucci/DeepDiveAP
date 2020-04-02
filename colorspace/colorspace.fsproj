@@ -12,6 +12,7 @@
     <Compile Include="Before.fs" />
     <Compile Include="After.fs" />
     <Compile Include="Program.fs" />
+    <None Include="colorspace.fsx" />
   </ItemGroup>
   <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

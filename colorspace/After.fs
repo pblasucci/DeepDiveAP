@@ -10,7 +10,7 @@ let (|HSL|) (color:Color) =
   let hue = color.GetHue() |> float
   let saturation = color.GetSaturation() |> float
   let lightness = color.GetBrightness() |> float
-  (hue, saturation, lightness)
+  HSL (hue, saturation, lightness)
 
 let (|ValueIsR|ValueIsG|ValueIsB|) (RGB (r, g, b)) =
   // Normalize R,G, and B components to [0.0 ... 1.0]
@@ -36,6 +36,7 @@ let (|HSV|) (HSL (_, _, l) as color) =
   // Determine hue and saturation
   let hue, saturation =
     if chroma = 0.0 then
+      // Value is achromatic
       (0.0, 0.0)
     else
       let h = 60.0 * (step + (shift / chroma))

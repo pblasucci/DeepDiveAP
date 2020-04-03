@@ -25,5 +25,5 @@ let test color =
 [<EntryPoint>]
 let main _ =
   Arb.register<Generators> () |> ignore
-  Check.Verbose(test)
+  Check.Quick(test)
   0 // okay

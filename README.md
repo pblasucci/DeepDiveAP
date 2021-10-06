@@ -20,6 +20,14 @@ dotnet paket generate-load-scripts
 
 ---
 
+#### Contributors
+
+Special thanks to the following folks who have helped to improve the quality of this presentation and its asscicated materials:
+
+* [Romain Deneau][https://github.com/rdeneau]
+
+---
+
 #### License
 
 All source code, documentation, presentations, and other materials are licensed

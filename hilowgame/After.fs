@@ -2,21 +2,22 @@ module hilowgame.After
 
 open System
 
-let (===) expected actual =
-    (Char.ToUpper expected) = (Char.ToUpper actual)
-
-let (|Char|_|) (expected: char) value =
-  let parsed, actual = Char.TryParse(value)
-  if parsed && expected === actual then Some () else None
+let (|Char|_|) value =
+  let ok, c = Char.TryParse(value)
+  if ok then Some c else None
 
 let (|High|_|) (currentCard, nextCard) = function
-  | Char 'h' when nextCard >= currentCard -> Some () | _ -> None
+  | Char 'h' | Char 'H' when nextCard >= currentCard -> Some () | _ -> None
 
 let (|Low|_|) (currentCard, nextCard) = function
-  | Char 'l' when nextCard <= currentCard -> Some () | _ -> None
+  | Char 'l' | Char 'L' when nextCard <= currentCard -> Some () | _ -> None
 
 let (|Quit|_|) = function
-  | Char 'q' -> Some () | _ -> None
+  | Char 'q' | Char 'Q' -> Some () | _ -> None
+
+let buildRules currentCard nextCard =
+  let pair = (currentCard, nextCard)
+  ((|High|_|) pair, (|Low|_|) pair)
 
 let playGame (io : IO) =
 
@@ -28,12 +29,11 @@ let playGame (io : IO) =
 #if INTERACTIVE
     io.writef "\n(DEBUG) Next Card: %i\n\n" nextCard
 #endif
-    let (|HighOk|_|) = (|High|_|) (currentCard, nextCard)
-    let (|LowOk|_|) = (|Low|_|) (currentCard, nextCard)
+    let (|High'|_|), (|Low'|_|) = buildRules currentCard nextCard
 
     io.writef "Do you go [h]igher or [l]ower (or [q]uit)? "
     match io.scanfn () with
-    | HighOk | LowOk ->
+    | High' | Low' ->
         io.writef "\nA lucky guess! Keep going...\n\n"
         loop (streak + 1) nextCard
 
